@@ -27,6 +27,14 @@ async function loadAllFiles() {
     }
 }
 
+function getLatest() {
+    let result = [];
+    data.forEach(d => {
+        result.push(d[d.length-1]);
+    });
+    return result;
+}
+
 async function loadData(path) {
     return await csv({
         noheader: true, 
@@ -35,5 +43,7 @@ async function loadData(path) {
 }
 
 app.get('/', (req, res) => res.send('Hello World!'))
+
+app.get('/losAngelesSateliteLatest', (req, res) => res.send(getLatest()))
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

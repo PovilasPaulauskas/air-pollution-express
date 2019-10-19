@@ -35,13 +35,15 @@ function getLatest() {
     return result;
 }
 
-function getHistorical(n) {
+function getHistorical(lat, long, n) {
     let result = [];
     data.forEach(d => {
-        let arr = [];
-        for(let i = 0; i < n; i++)
-            arr.push(d[d.length-(n-i)]);
-        result.push(arr)
+        if (d[0].latitude == lat && d[0].longitude == long) {
+            let arr = [];
+            for(let i = 0; i < n; i++)
+                arr.push(d[d.length-(n-i)]);
+            result.push(arr)
+        }
     });
     return result;
 }
@@ -58,13 +60,13 @@ app.get('/', (req, res) => res.send('Hello World!'))
 app.get('/losAngelesSateliteLatest', (req, res) => res.send(getLatest()))
 
 app.get('/historical', (req, res) => {
-    if( !req.query || !req.query.n)
-        return res.status(400).send('Missing N.');
+    if( !req.query || !req.query.n || !req.query.lat || !req.query.long )
+        return res.status(400).send('Missing input.');
 
     if( req.query.n <= 0 || req.query.n > 100 )
         return res.status(400).send('Bad N range. Must be 1..100');
 
-    return res.send(getHistorical(req.query.n))
+    return res.send(getHistorical(req.query.lat, req.query.long, req.query.n))
 });
 
 app.get('/stations', (req, res) => {

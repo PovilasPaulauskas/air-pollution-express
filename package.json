@@ -1,0 +1,26 @@
+{
+  "name": "air-pollution-express",
+  "version": "1.0.0",
+  "description": "super awesome nodejs express thingy thats going to blow your socks off",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PovilasPaulauskas/air-pollution-express.git"
+  },
+  "keywords": [
+    "air",
+    "pollution"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PovilasPaulauskas/air-pollution-express/issues"
+  },
+  "homepage": "https://github.com/PovilasPaulauskas/air-pollution-express#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

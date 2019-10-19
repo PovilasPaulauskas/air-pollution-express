@@ -56,6 +56,14 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 app.get('/losAngelesSateliteLatest', (req, res) => res.send(getLatest()))
 
-app.get('/historical', (req, res) => res.send(getHistorical(req.query.n)));
+app.get('/historical', (req, res) => {
+    if( !req.query || !req.query.n)
+        return res.status(400).send('Missing N.');
+
+    if( req.query.n <= 0 || req.query.n > 100 )
+        return res.status(400).send('Bad N range. Must be 1..100');
+
+    return res.send(getHistorical(req.query.n))
+});
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

@@ -1,7 +1,7 @@
 const express = require('express')
 const csv = require('csvtojson');
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 const files = [
     './data/US_LosAngeles-LongBeach-SantaAna_Anaheim.MOD04.csv',
@@ -17,7 +17,6 @@ startup();
 
 async function startup() {
     await loadAllFiles();
-    console.log(data);
 }
 
 async function loadAllFiles() {

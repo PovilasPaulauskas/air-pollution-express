@@ -34,6 +34,17 @@ function getLatest() {
     return result;
 }
 
+function getHistorical(n) {
+    let result = [];
+    data.forEach(d => {
+        let arr = [];
+        for(let i = 0; i < n; i++)
+            arr.push(d[d.length-(n-i)]);
+        result.push(arr)
+    });
+    return result;
+}
+
 async function loadData(path) {
     return await csv({
         noheader: true, 
@@ -44,5 +55,7 @@ async function loadData(path) {
 app.get('/', (req, res) => res.send('Hello World!'))
 
 app.get('/losAngelesSateliteLatest', (req, res) => res.send(getLatest()))
+
+app.get('/historical', (req, res) => res.send(getHistorical(req.query.n)));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

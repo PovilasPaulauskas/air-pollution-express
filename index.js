@@ -1,5 +1,6 @@
 const express = require('express')
 const csv = require('csvtojson');
+const https = require('https');
 const app = express()
 const port = process.env.PORT || 3000
 
@@ -64,6 +65,30 @@ app.get('/historical', (req, res) => {
         return res.status(400).send('Bad N range. Must be 1..100');
 
     return res.send(getHistorical(req.query.n))
+});
+
+app.get('/stations', (req, res) => {
+    if( !req.query || !req.query.latlng)
+        return res.status(400).send('Missing latlng.');
+
+    https.get(`https://api.waqi.info/map/bounds/?token=aa5209e068f86a4cae5ee4f418c36e36ca46ca6f&latlng=${req.query.latlng}`, (resp) => {
+    
+    let data = '';
+
+    // A chunk of data has been recieved.
+    resp.on('data', (chunk) => {
+        data += chunk;
+    });
+
+    // The whole response has been received. Print out the result.
+    resp.on('end', () => {
+        //console.log(JSON.parse(data));
+        res.send(JSON.parse(data));
+    });
+
+    }).on("error", (err) => {
+        console.log("Error: " + err.message);
+    });
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

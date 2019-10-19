@@ -49,7 +49,7 @@ function getHistorical(n) {
 async function loadData(path) {
     return await csv({
         noheader: true, 
-        headers: ['year','month','day','latitude','longitude','aod1','aod3','std3']
+        headers: ['year','month','day','longitude','latitude','aod1','aod3','std3']
     }).fromFile(path);
 }
 

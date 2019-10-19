@@ -4,7 +4,8 @@
   "description": "super awesome nodejs express thingy thats going to blow your socks off",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
